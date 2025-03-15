@@ -1,0 +1,112 @@
+# Record Management System Architecture
+
+This document details the architectural design of the Record Management System, which follows the Model-View-Controller (MVC) pattern.
+
+## MVC Architecture
+
+The application is divided into three main components:
+
+### Model
+
+The Model component represents the data and business logic of the application. It:
+- Manages data access and storage
+- Implements business rules and validation
+- Handles persistence (loading/saving data)
+- Is independent of the user interface
+
+#### Key Classes:
+- `RecordModel`: Base class that provides common functionality
+- `ClientModel`: Manages client records
+- `AirlineModel`: Manages airline records
+- `FlightModel`: Manages flight records
+
+### View
+
+The View component manages the user interface elements. It:
+- Renders data from the Model in a suitable format
+- Captures user input and interactions
+- Forwards user actions to the Controller
+- Updates the UI when data changes
+
+#### Key Classes:
+- `RecordManagementGUI`: Main application window and UI components
+- Contains tab frames for clients, airlines, and flights
+- Uses Tkinter for all UI elements
+
+### Controller
+
+The Controller component mediates between Model and View. It:
+- Processes input from the View
+- Updates the Model based on user actions
+- Triggers View updates when the Model changes
+- Contains application logic for responding to user actions
+
+#### Key Classes:
+- `ClientController`: Manages client-related operations
+- `AirlineController`: Manages airline-related operations
+- `FlightController`: Manages flight-related operations
+
+## Data Flow
+
+1. User interacts with the View (e.g., clicks a button)
+2. View passes the action to the Controller
+3. Controller processes the request and updates the Model if needed
+4. Model performs data operations and returns results
+5. Controller receives the results and triggers View updates
+6. View refreshes to display the updated data
+
+## Communication Between Components
+
+- The View has a reference to the Controller
+- The Controller has a reference to the Model
+- The Controller has a callback reference to the View update methods
+- The Model does not directly reference the View or Controller
+
+## Data Persistence
+
+- Records are stored in JSON format
+- The Model is responsible for loading and saving data
+- The file structure is:
+  ```json
+  {
+      "Client": [
+          { /* client data */ },
+          { /* client data */ }
+      ],
+      "Airline": [
+          { /* airline data */ },
+          { /* airline data */ }
+      ],
+      "Flight": [
+          { /* flight data */ },
+          { /* flight data */ }
+      ]
+  }
+  ```
+
+## UI Design
+
+The application uses a tabbed interface with three main sections:
+- Client Management
+- Airline Management
+- Flight Management
+
+Each tab provides:
+- A form for entering record data
+- Buttons for CRUD operations (Create, Read, Update, Delete)
+- A table view of all records
+- Search functionality
+
+## Error Handling
+
+- Input validation occurs in the Controller
+- The Model provides data consistency checks
+- User feedback is displayed through the View
+- A status bar shows current application state
+
+## Testing Strategy
+
+- Models are tested in isolation with direct data manipulation
+- Controllers are tested with mock Models and Views
+- Views are tested for proper rendering and event handling
+- Integration tests verify the components work together
