@@ -28,26 +28,28 @@ def _is_dict(value: Any) -> bool:
 
 def _term_in_leaf(term: str, leaf: Union[str, int, float, bool]) -> bool:
     # if term is a string, check if it is in the value
-    if isinstance(leaf, str) and term in leaf:
+    if isinstance(leaf, str) and term.lower() in leaf.lower():
         return True
     # if term is a number, check if it is equal to the value
-    if isinstance(leaf, (int, float)) and term == str(leaf):
+    if isinstance(leaf, (int, float)) and term.lower() in str(leaf).lower():
         return True
     # if term is a boolean, check if it is equal to the value
-    if isinstance(leaf, bool) and term == str(leaf):
+    if isinstance(leaf, bool) and term.lower() in str(leaf).lower():
         return True
 
     return False
 
 def _term_in_list(term: str, values: List[Any]) -> bool:
     for value in values:
+        found = False
         if _is_leaf(value):
-            return _term_in_leaf(term, value)
+            found = _term_in_leaf(term, value)
         if _is_dict(value):
-            return _term_in_dict(term, value)
+            found = _term_in_dict(term, value)
         if _is_list(value):
-            return _term_in_list(term, value)
-        return False
+            found = _term_in_list(term, value)
+        if found:
+            return True
     return False
 
 
