@@ -1,6 +1,6 @@
 {
-    "Client": [
-        {
+    "Client": {
+        "111": {
             "ID": "111",
             "Type": "Client",
             "Name": "deded2",
@@ -11,8 +11,8 @@
             "State": "dede",
             "Zip Code": ""
         },
-        {
-            "ID": "111",
+        "112": {
+            "ID": "112",
             "Type": "Client",
             "Name": "deded",
             "Phone Number": "dede",
@@ -22,7 +22,7 @@
             "State": "dede",
             "Zip Code": ""
         }
-    ],
-    "Airline": [],
-    "Flight": []
+    },
+    "Airline": {},
+    "Flight": {}
 }
